@@ -13,4 +13,5 @@ The Create Todo route is a post request that takes two required parameters (name
 
 - **Delete Todo**: http://localhost:5000/api/todos/id. This is for deleting a todo by adding it's id.
 
-## Database: The project is connected to a NoSQL database, Mongodb. Mongoose was used in the project
+## Database: 
+The project is connected to a NoSQL database, Mongodb. Mongoose was used in the project
