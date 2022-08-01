@@ -6,15 +6,26 @@ const HttpError = require('../models/http-error');
 const createTodo = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError('Invalid inputs passed, please check your data.', 422);
+        return next(
+            new HttpError('Invalid inputs passed, please check your data.', 422)
+        )
     }
-    const createdTodo = new Todo({
-        name: req.body.name,
-        time: req.body.time,
-        reminder: req.body.reminder
-    });
-    const result = await createdTodo.save();
-    res.status(201).json(result);
+const createdTodo = new Todo({
+    name: req.body.name,
+    time: req.body.time,
+    reminder: req.body.reminder
+});
+try {
+    await createdTodo.save();
+} catch (err) {
+    const error = new HttpError(
+        'Creating place failed, please try again.',
+        500
+    );
+    return next(error);
+}
+
+res.status(201).json({ todo: createdTodo });
 };
 
 //get all Todos
