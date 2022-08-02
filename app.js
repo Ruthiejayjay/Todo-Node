@@ -18,8 +18,7 @@ app.use('/api/todos', todoRoutes);
 
 
 app.use((req, res, next) => {
-    const error = new HttpError('Could not find this route.', 404);
-    throw error;
+  res.status(404).json({message: 'Could not find this route'})
   });
 
 mongoose
