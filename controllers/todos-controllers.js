@@ -1,4 +1,5 @@
 const Todo = require('../models/todo');
+const moment = require('moment');
 const { validationResult } = require('express-validator');
 const HttpError = require('../models/http-error');
 
@@ -6,24 +7,18 @@ const HttpError = require('../models/http-error');
 const createTodo = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return next(
-            new HttpError('Invalid inputs passed, please check your data.', 422)
-        )
+        res.status(404).json({message: 'Invalid Inputs passed, check your data'})
     }
     const createdTodo = new Todo({
         name: req.body.name,
-        time: req.body.time,
+        time: moment.utc(req.body.time, 'YYYY-MM-DD hh:mm:ss a'),
         reminder: req.body.reminder,
         isCompleted: req.body.isCompleted
     });
     try {
         await createdTodo.save();
     } catch (err) {
-        const error = new HttpError(
-            'Creating todo failed, please try again.',
-            500
-        );
-        return next(error);
+        res.status(404).json({message: 'Creating Todo failed'})
     }
 
     res.status(201).json({ todo: createdTodo });
@@ -44,19 +39,11 @@ const getTodoById = async (req, res, next) => {
         todo = await Todo.findById(todoId);
 
     } catch (err) {
-        const error = new HttpError(
-            'Todo not found',
-            404
-        );
-        return next(error)
+        res.status(404).json({message: 'Todo not found'})
     }
 
     if (!todo) {
-        const error = new HttpError(
-            'Could not find a todo for the provided id.',
-            404
-        );
-        return next(error);
+        res.status(404).json({message: 'Could not find Todo for the provided Id'})
     }
 
     res.status(200).json({ todo })
@@ -72,22 +59,14 @@ const updateTodo = async (req, res, next) => {
     try {
         todo = await Todo.findById(todoId);
     } catch (err) {
-        const error = new HttpError(
-            'Could not find Todo',
-            500
-        );
-        return next(error)
+        res.status(404).json({message: 'Could not find Todo for the provided Id'})
     }
     todo.isCompleted = isCompleted;
 
     try {
         await todo.save();
     } catch (err) {
-        const error = new HttpError(
-            'Could not Update Todo',
-            500
-        );
-        return next(error)
+        res.status(404).json({message: 'Could not update Todo'})
     }
     res.status(204).json({ message: 'Todo updated'})
 }
@@ -100,20 +79,14 @@ const deleteTodo = async (req, res, next) => {
     try {
         todo = await Todo.findById(todoId);
     } catch (err) {
-        const error = new HttpError(
-            'Something went wrong. could not find todo',
-            500
-        );
+        res.status(404).json({message: 'Todo not found'})
         return next(error)
     }
 
     try {
         await todo.remove();
     } catch (err) {
-        const error = new HttpError(
-            'Something went wrong, could not delete todo.',
-            500
-        );
+        res.status(500).json({message: 'Could not Delete Todo'})
         return next(error);
     }
     res.status(204).json({ message: 'Deleted todo.' })
