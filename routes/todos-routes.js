@@ -17,6 +17,7 @@ router.post('/',
     ],
     todoControllers.createTodo
 );
+router.patch('/:tid', todoControllers.updateTodo);
 router.delete('/:tid', todoControllers.deleteTodo)
 
 
