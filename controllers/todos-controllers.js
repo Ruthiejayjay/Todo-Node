@@ -10,22 +10,23 @@ const createTodo = async (req, res, next) => {
             new HttpError('Invalid inputs passed, please check your data.', 422)
         )
     }
-const createdTodo = new Todo({
-    name: req.body.name,
-    time: req.body.time,
-    reminder: req.body.reminder
-});
-try {
-    await createdTodo.save();
-} catch (err) {
-    const error = new HttpError(
-        'Creating place failed, please try again.',
-        500
-    );
-    return next(error);
-}
+    const createdTodo = new Todo({
+        name: req.body.name,
+        time: req.body.time,
+        reminder: req.body.reminder,
+        isCompleted: req.body.isCompleted
+    });
+    try {
+        await createdTodo.save();
+    } catch (err) {
+        const error = new HttpError(
+            'Creating todo failed, please try again.',
+            500
+        );
+        return next(error);
+    }
 
-res.status(201).json({ todo: createdTodo });
+    res.status(201).json({ todo: createdTodo });
 };
 
 //get all Todos
@@ -44,8 +45,8 @@ const getTodoById = async (req, res, next) => {
 
     } catch (err) {
         const error = new HttpError(
-            'Something went wrong. could not find todo',
-            500
+            'Todo not found',
+            404
         );
         return next(error)
     }
@@ -60,6 +61,35 @@ const getTodoById = async (req, res, next) => {
 
     res.status(200).json({ todo })
 
+}
+
+//update todo status
+const updateTodo = async (req, res, next) => {
+    const { isCompleted } = req.body;
+    const todoId = req.params.tid;
+
+    let todo;
+    try {
+        todo = await Todo.findById(todoId);
+    } catch (err) {
+        const error = new HttpError(
+            'Could not find Todo',
+            500
+        );
+        return next(error)
+    }
+    todo.isCompleted = isCompleted;
+
+    try {
+        await todo.save();
+    } catch (err) {
+        const error = new HttpError(
+            'Could not Update Todo',
+            500
+        );
+        return next(error)
+    }
+    res.status(204).json({ message: 'Todo updated'})
 }
 
 //delet a todo by id
@@ -86,7 +116,7 @@ const deleteTodo = async (req, res, next) => {
         );
         return next(error);
     }
-    res.status(200).json({ message: 'Deleted todo.' })
+    res.status(204).json({ message: 'Deleted todo.' })
 }
 
 
@@ -95,4 +125,5 @@ const deleteTodo = async (req, res, next) => {
 exports.createTodo = createTodo;
 exports.getTodos = getTodos;
 exports.getTodoById = getTodoById;
+exports.updateTodo = updateTodo;
 exports.deleteTodo = deleteTodo;
