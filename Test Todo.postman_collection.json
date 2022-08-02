@@ -14,12 +14,37 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
 						"type": "text"
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Write Backend for todo and sumbit\",\r\n    \"time\": \"2:00pm\"\r\n   \r\n}"
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "",
+							"description": "This should be a string",
+							"type": "text"
+						},
+						{
+							"key": "reminder",
+							"value": "false",
+							"description": "This is a boolean",
+							"type": "text"
+						},
+						{
+							"key": "time",
+							"value": "2022-08-09 14:00",
+							"description": "Add the date and time for the todo, format(YYYY-MM-DD hh:mm:ss a)",
+							"type": "text"
+						}
+					]
 				},
 				"url": {
 					"raw": "http://localhost:5000/api/todos",
@@ -62,7 +87,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/todos/62e7c8ab04e664197c19c5ff",
+					"raw": "http://localhost:5000/api/todos/62e7db07c997f246985f82df",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -71,7 +96,7 @@
 					"path": [
 						"api",
 						"todos",
-						"62e7c8ab04e664197c19c5ff"
+						"62e7db07c997f246985f82df"
 					]
 				}
 			},
@@ -83,7 +108,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/todos/62e7c8ab04e664197c19c5ff",
+					"raw": "http://localhost:5000/api/todos/62e7cfca40e69c39e49c5ce1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -92,14 +117,38 @@
 					"path": [
 						"api",
 						"todos",
-						"62e7c8ab04e664197c19c5ff"
-					],
-					"query": [
+						"62e7cfca40e69c39e49c5ce1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Todod",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
 						{
-							"key": "id",
-							"value": "",
-							"disabled": true
+							"key": "isCompleted",
+							"value": "true",
+							"type": "text"
 						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/todos/62e92415fbda5b34c8e4dff1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"todos",
+						"62e92415fbda5b34c8e4dff1"
 					]
 				}
 			},
