@@ -8,9 +8,14 @@ const todoRoutes = require('./routes/todos-routes');
 
 const app = express();
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/todos', todoRoutes);
+
+
 
 app.use((req, res, next) => {
     const error = new HttpError('Could not find this route.', 404);
