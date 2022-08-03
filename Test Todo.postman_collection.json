@@ -28,20 +28,20 @@
 					"urlencoded": [
 						{
 							"key": "name",
-							"value": "",
-							"description": "This should be a string",
+							"value": "newtested123",
+							"description": "This should be a string, this is a required field",
 							"type": "text"
 						},
 						{
 							"key": "reminder",
-							"value": "false",
-							"description": "This is a boolean",
+							"value": "true",
+							"description": "This is a boolean field, and it's set to default false",
 							"type": "text"
 						},
 						{
-							"key": "time",
-							"value": "2022-08-09 14:00",
-							"description": "Add the date and time for the todo, format(YYYY-MM-DD hh:mm:ss a)",
+							"key": "reminderAt",
+							"value": "2022-08-09 21:00",
+							"description": "Add the date and time for the todo, format(YYYY-MM-DD hh:mm:ss a), this is not a required field",
 							"type": "text"
 						}
 					]
@@ -87,7 +87,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/todos/62e7db07c997f246985f82df",
+					"raw": "http://localhost:5000/api/todos/62e8e86e7017e526f4e5c793",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -96,7 +96,7 @@
 					"path": [
 						"api",
 						"todos",
-						"62e7db07c997f246985f82df"
+						"62e8e86e7017e526f4e5c793"
 					]
 				}
 			},
@@ -108,7 +108,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/todos/62e7cfca40e69c39e49c5ce1",
+					"raw": "http://localhost:5000/api/todos/62ea6379123a3c3d70586db4?",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -117,14 +117,21 @@
 					"path": [
 						"api",
 						"todos",
-						"62e7cfca40e69c39e49c5ce1"
+						"62ea6379123a3c3d70586db4"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": null,
+							"description": "Id is required to get todo"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update Todod",
+			"name": "Update Todo",
 			"request": {
 				"method": "PATCH",
 				"header": [],
@@ -132,14 +139,27 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "isCompleted",
-							"value": "true",
+							"key": "reminder",
+							"value": "false",
+							"description": "This field can be set to true or false, and isn't required",
+							"type": "text"
+						},
+						{
+							"key": "reminderAt",
+							"value": "2022-08-09 20:00",
+							"description": "Add the date and time for the todo, format(YYYY-MM-DD hh:mm:ss a). This is not required",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "newtested123",
+							"description": "This field is required to update a todo",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/todos/62e92415fbda5b34c8e4dff1",
+					"raw": "http://localhost:5000/api/todos/62ea6379123a3c3d70586db4",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -148,7 +168,46 @@
 					"path": [
 						"api",
 						"todos",
-						"62e92415fbda5b34c8e4dff1"
+						"62ea6379123a3c3d70586db4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Todo Details",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "isCompleted",
+							"value": "true",
+							"description": "isCompleted can be set to true or false",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/todos/62ea6379123a3c3d70586db4/completed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"todos",
+						"62ea6379123a3c3d70586db4",
+						"completed"
 					]
 				}
 			},
