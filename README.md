@@ -5,13 +5,15 @@ Run project on postman using http://localhost:5000/api/todos.
 
 ### The project has three routes:
 - **Create Todo**: http://localhost:5000/api/todos.
-The Create Todo route is a post request that takes two required parameters (name: String, time: String) and one unrequired parameter (reminder: Boolean).
+The Create Todo route is a post request that takes two required parameters (name: String, reminderAt: Date) and one unrequired parameter (reminder: Boolean, (default: false)).
 
 - **Get All Todos**: http://localhost:5000/api/todos. The Get all todos is a get requests that gets all the created todos.
 
 - **Get Todo By Id**: http://localhost:5000/api/todos/id. This route get a single todo by id.
 
-- **Update Todo**: http://localhost:5000/api/todos/id. This route is to update the todo status from isCompleted:false (the default status at creation), to isCompleted: true. This route is used when a todo has been completed. This is  PATCH request
+- **Update A Completed Todo**: http://localhost:5000/api/todos/id/completed. This route is to update the todo status from isCompleted:false (the default status at creation), to isCompleted: true. This route is used when a todo has been completed. This is  PATCH request.
+
+- **Update A Todo**: http://localhost:5000/api/todos/id. This route is for updating a todo details.
 
 - **Delete Todo**: http://localhost:5000/api/todos/id. This is for deleting a todo by adding it's id.
 
