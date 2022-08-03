@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const todoSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    time: { type: Date, required: true },
-    reminder: { type: Boolean },
+    reminderAt: { type: Date },
+    reminder: { type: Boolean, default: false },
     isCompleted: { type: Boolean, default: false }
 }, {
     versionKey: false,
